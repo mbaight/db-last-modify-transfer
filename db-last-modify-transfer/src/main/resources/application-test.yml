@@ -1,0 +1,52 @@
+server:
+  port: 3506
+spring:
+  application:
+    name: db-last-modify-transfer
+
+# UI显示日志
+logging:
+  file: ./logs/${spring.application.name}.log
+  level:
+    root: debug
+    rx: warn
+    io.undertow: warn
+    org.springframework: warn
+    org.apache: warn
+    com.netflix: warn
+    de.codecentric: warn
+    com.sun.jersey: warn
+    org.I0Itec: warn
+    javax.activation: warn
+    com.sun: warn
+    javax: warn
+    sun.rmi: warn
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 10
+  client:
+    registry-fetch-interval-seconds: 5
+    service-url:
+      defaultZone: ${EUREKA_REPLICAS_LIST}
+
+
+
+sgsl:
+  custom:
+    cancel:
+      config:
+        dstination: example
+        simple-properties:
+          canal-server-ip: 172.16.10.194
+          canal-server-port: 11111
+        cluster-properties:
+          zk-address: 172.16.10.194:11211
+          user-name:
+          password:
+        cluster: false
+
+
+

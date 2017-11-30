@@ -1,0 +1,62 @@
+
+spring:
+  application:
+    name: api-gateway
+  output:
+    ansi:
+      enabled: always
+  cloud:
+    bus:
+      trace:
+        enabled: true
+    config:
+      name: zuul-routes
+      profile: ${RUN_LEVEL:dev}
+      label: master
+      failFast: true
+      discovery:
+        enabled: true
+        service-id: config-server
+      retry:
+        initial-interval: 10000
+        multiplier: 2
+        max-interval: 60000
+        max-attempts: 10
+    loadbalancer:
+      retry:
+        enabled: true
+  rabbitmq:
+    host: ${RABBIT_MQ_HOST:127.0.0.1}
+    username: guest
+    password: guest
+  redis:
+    host: ${REDIS_HOST:172.16.10.192}
+    port: 6379
+    password:
+    timeout: 10
+    pool:
+      maxActive: 16
+      maxWait: -1
+      maxIdle: 16
+      minIdle: 0
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${EUREKA_REPLICAS_LIST:http://127.0.0.1:1111/eureka}
+zuul:
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+    max-per-route-connections: 50
+    max-total-connections: 500
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000

@@ -1,0 +1,28 @@
+server:
+  port: 1301
+management:
+  security:
+    enabled: false
+security:
+  basic:
+    enabled: false
+logging:
+  file: ./logs/${spring.application.name}.log
+  level:
+    root: warn
+spring:
+  application:
+    name: zuul-accesslog-consumer
+  rabbitmq:
+    host: ${RABBIT_MQ_HOST}
+    username: guest
+    password: guest
+  data:
+    mongodb:
+      uri: ${MONGO_DB_URL}
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${EUREKA_REPLICAS_LIST}

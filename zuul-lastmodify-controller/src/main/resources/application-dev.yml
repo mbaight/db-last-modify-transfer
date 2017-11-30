@@ -1,0 +1,122 @@
+server:
+  port: 1301
+management:
+  security:
+    enabled: false
+security:
+  basic:
+    enabled: false
+logging:
+  file: ./logs/${spring.application.name}.log
+  level:
+    root: debug
+    rx: warn
+    io.undertow: warn
+    org.springframework: warn
+    org.apache: warn
+    org.hibernate: warn
+    org.mongodb: warn
+    com.netflix: warn
+    com.netflix.loadbalancer: info
+    com.sun.jersey: warn
+    org.I0Itec: warn
+    javax.activation: warn
+    com.sun: warn
+    javax: warn
+    sun: warn
+
+spring:
+  application:
+    name: zuul-lastmodify-controller
+
+  output:
+    ansi:
+      enabled: always
+
+  cloud:
+    bus:
+      trace:
+        enabled: true
+
+  data:
+    mongodb:
+      authentication-database: tara
+      repositories:
+        enabled: true
+      uri: ${MONGO_DB_CANAL_LASTMODIFY_URL:mongodb://172.16.10.199:27017/cancal_lastmodify} 
+
+zuul:
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+    max-per-route-connections: 50
+    max-total-connections: 500
+
+  access:
+    log:
+      enable: false
+  fallback:
+    enable: false
+
+  routes:
+    app-server:
+      path: /app-server/**
+      service-id: app-server-v1-1-1
+    app-manager:
+      path: /app-manager/**
+      service-id: app-manager-v1-1-1
+    dictionary-service:
+      path: /dictionary-service/**
+      service-id: dictionary-service
+    marketing-center:
+      path: /marketing-center/**
+      service-id: marketing-center
+    order-center:
+      path: /order-center/**
+      service-id: order-center
+    provider-center:
+      path: /provider-center/**
+      service-id: provider-center
+    social-center:
+      path: /social-center/**
+      service-id: social-center
+    user-center:
+      path: /user-center/**
+      service-id: user-center
+
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${EUREKA_REPLICAS_LIST:http://172.16.10.194:1111/eureka}
+
+sgsl:
+  custom:
+    lastmodify:
+      metadata:
+        config:
+          last-modify-meta-data-with-services:
+            -
+              serviceName: app-server
+              dbName: foodseetest
+              lastModifyMetaDataList:
+              -
+                apiName: /v1/deliveruser/achievement/today/{deliverUserId}
+                userData: true
+                tableNames:
+                  - t_user_location
+                  - t_user_extend

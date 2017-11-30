@@ -1,0 +1,12 @@
+${AnsiColor.BRIGHT_GREEN}
+ ________       ________      ________       ___          
+|\   ____\     |\   ____\    |\   ____\     |\  \         
+\ \  \___|_    \ \  \___|    \ \  \___|_    \ \  \        
+ \ \_____  \    \ \  \  ___   \ \_____  \    \ \  \       
+  \|____|\  \    \ \  \|\  \   \|____|\  \    \ \  \____  
+    ____\_\  \    \ \_______\    ____\_\  \    \ \_______\
+   |\_________\    \|_______|   |\_________\    \|_______|
+   \|_________|                 \|_________|              
+${AnsiColor.BRIGHT_RED}
+Application Name: api-gateway 1.1-SNAPSHOT
+Spring Boot Version: ${spring-boot.version}${spring-boot.formatted-version}

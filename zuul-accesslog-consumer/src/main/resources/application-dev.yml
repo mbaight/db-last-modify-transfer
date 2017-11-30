@@ -1,0 +1,42 @@
+server:
+  port: 1301
+management:
+  security:
+    enabled: false
+security:
+  basic:
+    enabled: false
+logging:
+  file: ./logs/${spring.application.name}.log
+  level:
+    root: debug
+    rx: warn
+    io.undertow: warn
+    org.springframework: warn
+    org.apache: warn
+    org.hibernate: warn
+    org.mongodb: warn
+    com.netflix: warn
+    com.netflix.loadbalancer: info
+    com.sun.jersey: warn
+    org.I0Itec: warn
+    javax.activation: warn
+    com.sun: warn
+    javax: warn
+    sun: warn
+spring:
+  application:
+    name: zuul-accesslog-consumer
+  rabbitmq:
+    host: ${RABBIT_MQ_HOST:127.0.0.1}
+    username: guest
+    password: guest
+  data:
+    mongodb:
+      uri: ${MONGO_DB_URL:mongodb://172.16.10.199:27017/zuul-access-log}
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${EUREKA_REPLICAS_LIST:http://127.0.0.1:1111/eureka}
